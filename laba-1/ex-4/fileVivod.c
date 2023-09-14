@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 void main(){
-	//Задание строк имени файла и буффера для строк
-	char filename[50], predl[256];
+	//Задание строк имени файла и буффера для строк из файла
+	char filename[50], buffer[256];
 	//Задание указателя файла
 	FILE *file;
 	//Цикл пока файл не откроется 
@@ -16,8 +16,8 @@ void main(){
 		}
 	}
 	//Цикл вывода получаемых из файла строк
-	while (fgets(predl,256,file)!=NULL){
-		printf("%s", predl);
+	while (fgets(buffer,256,file)!=NULL){
+		printf("%s", buffer);
 	}
 	fclose(file);
 }
