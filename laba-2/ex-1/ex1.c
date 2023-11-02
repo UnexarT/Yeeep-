@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
- 
+
+
+
 int* randomIntArr(int len){
 	//Резервируем память для массива чисел
     int* mas = (int*)malloc(len*sizeof(int));
