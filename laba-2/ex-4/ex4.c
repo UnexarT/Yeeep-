@@ -7,44 +7,69 @@ struct Node_tag{
     struct Node_tag *next;
 };
 
+struct Stack{
+    struct Node_tag *head;
+    int size;
+};
+
 //Метод добавления нового узла с перезаписью ссылки вершины
-void push(struct Node_tag **head, int value){
-    struct Node_tag *in = malloc(sizeof(struct Node_tag));
-	if (in == NULL) {
+void push(struct Stack *stack, int value, int maxsize){
+	if (stack->size >= maxsize) {
 		perror("Невозможно добавить узел(память переполнена)");//Проверка переполнения памяти
-    }
-    in->next = *head; //Присвоение ссылки старой вершины к новой
-    in->value = value;//Значение новой вершины
-    *head = in;
+    } else {
+    	struct Node_tag *in = malloc(sizeof(struct Node_tag));
+    	in->next = stack->head; //Присвоение ссылки старой вершины к новой
+    	in->value = value;//Значение новой вершины
+    	stack->head = in;
+    	stack->size++;
+    }	
+}
+
+//Метод создания стека
+struct Stack* createStack() {
+    struct Stack* newStack = (struct Stack*)malloc(sizeof(struct Stack));
+    if (newStack == NULL) {
+        perror("Недостаточно оперативной памяти для создания нового стека");
+    } else {
+    	newStack->head = NULL;
+    	newStack->size = 0;
+    	return newStack;
+    }	
 }
 
 //Метод извлечения узла из стека с перезаписью ссылки вершины
-int pop(struct Node_tag **head){
-    if (*head == NULL) { 
+int pop(struct Stack *stack){
+    if (stack->head == NULL) { 
     	perror("Невозможно извлеч узел(стек пуст)");//Проверка пустого стека
-    }
-    struct Node_tag *out = *head;
-    *head = (*head)->next; //Присвоение вершины следующему узлу
-    int value = out->value;//Значение выходящего узло
-    free(out);
-    return value;
+    } else {
+    	struct Node_tag *out = stack->head;
+    	stack->head = stack->head->next; //Присвоение вершины следующему узлу
+    	int value = out->value;//Значение выходящего узла
+    	free(out);
+    	return value;
+    }	
 }
 
 //Метод просмотра верхнего значения
-int peek(const struct Node_tag* head){
-    if (head == NULL) {
+int peek(const struct Stack *stack){
+    if (stack->head == NULL) {
         perror("Невозможно вывести узел(стек пуст)");//Проверка пустого стека
+    }else{
+    	return stack->head->value;
     }
-    return head->value;
 }
 
 /*void main() {
-    struct Node_tag *head = NULL;//Задаем пустой стек
+	
+	int maxsize;
+    printf("Введите максимальный размер стека:");
+    scanf("%d", &maxsize);
+    struct Stack *stack = createStack();//Задаем пустой стек
     for (int i = 0; i < 10; i++){//Генератор значений стека
-        push(&head, i);
+        push(stack, i, maxsize);
     }
-    while (head) {
-        printf("peek:%d\n", peek(head));//Проверка вершины
-        printf("pop:%d\n", pop(&head));	//Извлекание вершины
+    while (stack->head) {
+        printf("peek:%d\n", peek(stack));//Проверка вершины
+        printf("pop:%d\n", pop(stack));	//Извлекание вершины
     }
 }*/
