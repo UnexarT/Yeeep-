@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+//сортировка пузырьком
 void mas_sort(float* mas, int len){
 	for(int i = 0; i < len-1; i++){
         for(int j = i+1; j < len; j++){
@@ -14,6 +15,7 @@ void mas_sort(float* mas, int len){
     }
 }
 
+//метод возвращающий массив случацных чисел в окрестности (0;1)
 float* randomFloatArr(int len){
 	//Динамическое изменение последовательности 
     //псевдослучайных чисел зависящих от кол-ва секунд

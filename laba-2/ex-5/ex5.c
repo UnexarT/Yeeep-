@@ -1,3 +1,4 @@
+//***********  ex5.c  **************
 #include <stdio.h>
 #include <ctype.h>
 #include "ex4_copy.c"

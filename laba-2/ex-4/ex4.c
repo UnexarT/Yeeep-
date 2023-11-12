@@ -59,7 +59,7 @@ int peek(const struct Stack *stack){
     }
 }
 
-/*void main() {
+void main() {
 	
 	int maxsize;
     printf("Введите максимальный размер стека:");
@@ -72,4 +72,4 @@ int peek(const struct Stack *stack){
         printf("peek:%d\n", peek(stack));//Проверка вершины
         printf("pop:%d\n", pop(stack));	//Извлекание вершины
     }
-}*/
+}

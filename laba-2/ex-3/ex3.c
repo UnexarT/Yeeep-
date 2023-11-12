@@ -3,12 +3,14 @@
 
 #define n 100
 
+//структура наименования и цены товара
 struct product{
     double price;
     char name[n];
 };
 
-int numb_of_strings(char * filename){
+//метод посчета строчек в файле
+int numb_of_strings(char * filename){ 
     FILE *file = fopen(filename, "r");
     int count = 0;
     if (file == NULL) {
@@ -25,6 +27,7 @@ int numb_of_strings(char * filename){
     return count;
 }
 
+//сортировка пузырьком
 void sort(struct product items[]){
 	int len = numb_of_strings("text.txt");
 	struct product tmp;
@@ -42,21 +45,25 @@ void sort(struct product items[]){
 
 void main(){
 	int num_strings = numb_of_strings("text.txt");
+    //создание массива структур
     struct product items[num_strings];
     FILE *file = fopen("text.txt", "r"); 
     if (file == NULL) {
         perror("Ошибка открытия файла!");
     } else {
+        //чтение файла и запись информации в структуру
         for(int i = 0; i < num_strings; i++){
         	fscanf(file, "%100s %lf", items[i].name, & items[i].price);
         }
         fclose(file);
     }
     file = fopen("text1.txt", "w"); 
+    //сортировка массива структур
     sort(items);
     if (file == NULL) {
         perror("Ошибка открытия файла!");
     } else {
+    //запись отсортированных данных в файл
     for (int i = 0; i < num_strings; i++) {
             fprintf(file, "%s %.2f\n", items[i].name, items[i].price);
     	}
