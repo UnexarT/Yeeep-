@@ -10,7 +10,7 @@
 "/"	{ return DIV; }
 "+"	{ return SUM; }
 "-"	{ return SUB; }
-"\n"	{return yywrap(); }
+"\n"	{ return END; }
 [ \t]	;
 .	{ printf("%s - Неизвестный символ\n", yytext); }
 exit(0) { exit(0); }

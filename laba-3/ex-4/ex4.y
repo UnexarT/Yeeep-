@@ -26,21 +26,35 @@ void treefree(struct ast *);
 }
 
 %token <d> NUM
-%token SUM SUB MUL DIV
+%token SUM SUB MUL DIV END
 
-%type <a> expr
+%type <a> expr term factor
 
 %%
 
-program: expr { printf("Решение: %lf\n", exprcheck($1)); treefree($1); }
+// Правила грамматики Bison/Yacc
 
-expr: NUM { $$ = newnum($1); }
-	| expr SUM expr { $$ = newast('+', $1, $3); }
-    | expr SUB expr { $$ = newast('-', $1, $3); }
-    | expr MUL expr { $$ = newast('*', $1, $3); } 
-    | expr DIV expr { $$ = newast('/', $1, $3); } 
-    | '(' expr ')' { $$ = $2; }
-    
+// Определение структуры программы
+
+program:
+    /* пусто */
+    | program expr END { printf("= %f\n", exprcheck($2)); treefree($2); } // Вычисление и вывод результата выражения
+    ;
+
+// Правила для выражений, термов и факторов
+expr: term
+    | expr SUM term { $$ = newast('+', $1, $3); } // Обработка операции сложения
+    | expr SUB term { $$ = newast('-', $1, $3); } // Обработка операции вычитания
+    ;
+
+term: factor
+    | term MUL factor { $$ = newast('*', $1, $3); } // Обработка операции умножения
+    | term DIV factor { $$ = newast('/', $1, $3); } // Обработка операции деления
+    ;
+
+factor: NUM { $$ = newnum($1); }                // Обработка числового литерала
+    | '(' expr ')' { $$ = $2; }              // Обработка выражений в скобках
+    ;
 %%
 
 // функция создания новой ветки дерева
