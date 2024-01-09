@@ -1,0 +1,10 @@
+map_lenght 100
+map_hight 100
+x_cube_begin 55
+y_cube_begin 55
+y_cube_end 60
+x_cube_end 101
+right 1000
+take
+put
+exit
