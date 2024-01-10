@@ -1,0 +1,4 @@
+while (right free){
+    right 1 times;
+}
+
